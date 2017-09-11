@@ -1,4 +1,4 @@
-
+ 
 
 def remove_direc():
     G.append('dir')
@@ -9,25 +9,33 @@ def remove_indir():
 
 
 def format(number):
-    G_format[number].append(G[number][0])
 
-    for i in range(1,len(G[number])):
-        if G[number][i].isalpha():
-            j = i
-            while G[number][j].isalpha():
-                if j==len(G[number])-1:
-                    break
-                j+=1
-            if i != j:
-                G_format[number].append(G[number][i:j])
-                i = j +1
+    lastAlp = 0
+    now = 0
+    while now < len(G[number]):
+        if not G[number][now].isalpha():
+            G_format[number].append(G[number][lastAlp:now])
+            lastAlp = now + 1
+        now+=1
+    G_format[number].append(G[number][lastAlp:now])
 
-
+    
+    #for i in range(1,len(G[number])):
+    #    if G[number][i].isalpha() and i != len(G[number]) - 1:
+    #        j = i
+    #        while G[number][j + 1].isalpha():
+    #            if j == len(G[number]):
+    #                break
+    #            j+=1
+    #        if i != j:
+    #            G_format[number].append(G[number][i:j + 1])
+    #            i = j + 1
+    #    if i == len(G[number]) - 1:
 
 
 
 n = input('请输入文法的数量n：')
-n=int(n)
+n = int(n)
 print('文法格式为：S:Qc|c')
 G = []
 G_format = []
@@ -36,7 +44,7 @@ for i in range(n):
     G_format.append([])
     format(i)
 
-# print(G_format)
+print(G_format)
 
 
 #for i in range(1,n + 1):
